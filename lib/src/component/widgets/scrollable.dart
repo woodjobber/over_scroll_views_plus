@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:over_scroll_views_plus/src/flutter/widgets/scroll_behavior_ext.dart';
 
 import '../../flutter/widgets/scrollable.dart';
 import '../../flutter/widgets/scrollable_helpers.dart';
@@ -102,7 +103,11 @@ class _OverscrollScrollableState extends MTScrollableState {
               proxyOnUpdate: _proxyOnUpdate,
               onPointerMoveEvent: _onMoveEvent,
             ),
-            (instance) => value.initializer(instance),
+            (instance) => value.initializer(instance
+              ..dragStartBehavior = widget.dragStartBehavior
+              ..multitouchDragStrategy =
+                  configuration.getMultitouchDragStrategy(context)
+              ..supportedDevices = configuration.dragDevices),
           ),
         );
       } else if (key == HorizontalDragGestureRecognizer) {
@@ -114,7 +119,11 @@ class _OverscrollScrollableState extends MTScrollableState {
               proxyOnUpdate: _proxyOnUpdate,
               onPointerMoveEvent: _onMoveEvent,
             ),
-            (instance) => value.initializer(instance),
+            (instance) => value.initializer(instance
+              ..dragStartBehavior = widget.dragStartBehavior
+              ..multitouchDragStrategy =
+                  configuration.getMultitouchDragStrategy(context)
+              ..supportedDevices = configuration.dragDevices),
           ),
         );
       }

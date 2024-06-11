@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:over_scroll_views_plus/src/flutter/widgets/scroll_behavior_ext.dart';
 import 'package:over_scroll_views_plus/src/flutter/widgets/scrollable_helpers.dart';
 
 /// Signature used by [MTScrollable] to build the viewport through which the
@@ -566,7 +567,8 @@ class MTScrollableState extends State<MTScrollable>
   String? get restorationId => widget.restorationId;
   final _MTRestorableScrollOffset _persistedScrollOffset =
       _MTRestorableScrollOffset();
-
+  ScrollBehavior get configuration =>
+      widget.scrollBehavior ?? ScrollConfiguration.of(context);
   late ScrollBehavior _configuration;
   ScrollController? _fallbackScrollController;
   DeviceGestureSettings? _mediaQueryGestureSettings;
@@ -762,7 +764,7 @@ class MTScrollableState extends State<MTScrollable>
                       _configuration.velocityTrackerBuilder(context)
                   ..dragStartBehavior = widget.dragStartBehavior
                   ..multitouchDragStrategy =
-                      _configuration.multitouchDragStrategy
+                      _configuration.getMultitouchDragStrategy(context)
                   ..gestureSettings = _mediaQueryGestureSettings
                   ..supportedDevices = _configuration.dragDevices;
               },
@@ -789,7 +791,7 @@ class MTScrollableState extends State<MTScrollable>
                       _configuration.velocityTrackerBuilder(context)
                   ..dragStartBehavior = widget.dragStartBehavior
                   ..multitouchDragStrategy =
-                      _configuration.multitouchDragStrategy
+                      _configuration.getMultitouchDragStrategy(context)
                   ..gestureSettings = _mediaQueryGestureSettings
                   ..supportedDevices = _configuration.dragDevices;
               },
