@@ -1,6 +1,6 @@
 name: over_scroll_views_plus
 description: "over_scroll_views_plus is a solution to the problem of nested tabbarviews causing the inability to return to the previous level or go to the next level."
-version: 0.0.4
+version: 0.0.4+1
 homepage:  https://github.com/woodjobber/over_scroll_views_plus.git
 repository:  https://github.com/woodjobber/over_scroll_views_plus.git
 
