@@ -31,60 +31,10 @@ const PageScrollPhysics _kPagePhysics = PageScrollPhysics();
 ///
 /// Each child of a page view is forced to be the same size as the viewport.
 ///
-/// You can use a [PageController] to control which page is visible in the view.
-/// In addition to being able to control the pixel offset of the content inside
-/// the [MTPageView], a [PageController] also lets you control the offset in terms
-/// of pages, which are increments of the viewport size.
-///
-/// The [PageController] can also be used to control the
-/// [PageController.initialPage], which determines which page is shown when the
-/// [MTPageView] is first constructed, and the [PageController.viewportFraction],
-/// which determines the size of the pages as a fraction of the viewport size.
-///
-/// {@youtube 560 315 https://www.youtube.com/watch?v=J1gE9xvph-A}
-///
-/// {@tool dartpad}
-/// Here is an example of [MTPageView]. It creates a centered [Text] in each of the three pages
-/// which scroll horizontally.
-///
-/// ** See code in examples/api/lib/widgets/page_view/page_view.0.dart **
-/// {@end-tool}
-///
-/// ## Persisting the scroll position during a session
-///
-/// Scroll views attempt to persist their scroll position using [PageStorage].
-/// For a [MTPageView], this can be disabled by setting [PageController.keepPage]
-/// to false on the [controller]. If it is enabled, using a [PageStorageKey] for
-/// the [key] of this widget is recommended to help disambiguate different
-/// scroll views from each other.
-///
-/// See also:
-///
-///  * [PageController], which controls which page is visible in the view.
-///  * [SingleChildScrollView], when you need to make a single child scrollable.
-///  * [ListView], for a scrollable list of boxes.
-///  * [GridView], for a scrollable grid of boxes.
-///  * [ScrollNotification] and [NotificationListener], which can be used to watch
-///    the scroll position without using a [ScrollController].
 class MTPageView extends StatefulWidget {
   /// Creates a scrollable list that works page by page from an explicit [List]
   /// of widgets.
   ///
-  /// This constructor is appropriate for page views with a small number of
-  /// children because constructing the [List] requires doing work for every
-  /// child that could possibly be displayed in the page view, instead of just
-  /// those children that are actually visible.
-  ///
-  /// Like other widgets in the framework, this widget expects that
-  /// the [children] list will not be mutated after it has been passed in here.
-  /// See the documentation at [SliverChildListDelegate.children] for more details.
-  ///
-  /// {@template flutter.widgets.PageView.allowImplicitScrolling}
-  /// If [allowImplicitScrolling] is true, the [MTPageView] will participate in
-  /// accessibility scrolling more like a [ListView], where implicit scroll
-  /// actions will move to the next page rather than into the contents of the
-  /// [MTPageView].
-  /// {@endtemplate}
   MTPageView({
     super.key,
     this.scrollDirection = Axis.horizontal,
@@ -109,24 +59,6 @@ class MTPageView extends StatefulWidget {
   /// number of children because the builder is called only for those children
   /// that are actually visible.
   ///
-  /// Providing a non-null [itemCount] lets the [MTPageView] compute the maximum
-  /// scroll extent.
-  ///
-  /// [itemBuilder] will be called only with indices greater than or equal to
-  /// zero and less than [itemCount].
-  ///
-  /// {@macro flutter.widgets.ListView.builder.itemBuilder}
-  ///
-  /// {@template flutter.widgets.PageView.findChildIndexCallback}
-  /// The [findChildIndexCallback] corresponds to the
-  /// [SliverChildBuilderDelegate.findChildIndexCallback] property. If null,
-  /// a child widget may not map to its existing [RenderObject] when the order
-  /// of children returned from the children builder changes.
-  /// This may result in state-loss. This callback needs to be implemented if
-  /// the order of the children may change at a later time.
-  /// {@endtemplate}
-  ///
-  /// {@macro flutter.widgets.PageView.allowImplicitScrolling}
   MTPageView.builder({
     super.key,
     this.scrollDirection = Axis.horizontal,
@@ -153,14 +85,6 @@ class MTPageView extends StatefulWidget {
   /// Creates a scrollable list that works page by page with a custom child
   /// model.
   ///
-  /// {@tool dartpad}
-  /// This example shows a [MTPageView] that uses a custom [SliverChildBuilderDelegate] to support child
-  /// reordering.
-  ///
-  /// ** See code in examples/api/lib/widgets/page_view/page_view.1.dart **
-  /// {@end-tool}
-  ///
-  /// {@macro flutter.widgets.PageView.allowImplicitScrolling}
   const MTPageView.custom({
     super.key,
     this.scrollDirection = Axis.horizontal,
@@ -200,6 +124,7 @@ class MTPageView extends StatefulWidget {
   /// [ScrollDirection].
   ///
   /// Defaults to [Axis.horizontal].
+  ///
   final Axis scrollDirection;
 
   /// Whether the page view scrolls in the reading direction.

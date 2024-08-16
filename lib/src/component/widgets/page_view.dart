@@ -1,3 +1,5 @@
+// ignore_for_file: doc_directive_missing_closing_tag
+
 import 'package:flutter/material.dart';
 import 'package:over_scroll_views_plus/src/component/widgets/scrollable.dart';
 
@@ -6,10 +8,61 @@ import '../../flutter/widgets/scrollable.dart';
 import '../../nested_scroll_notification.dart';
 import '../../wrapper_keep_alive.dart';
 
+/// A scrollable list that works page by page.
+///
+/// Each child of a page view is forced to be the same size as the viewport.
+///
+/// You can use a [PageController] to control which page is visible in the view.
+/// In addition to being able to control the pixel offset of the content inside
+/// the [MTPageView], a [PageController] also lets you control the offset in terms
+/// of pages, which are increments of the viewport size.
+///
+/// The [PageController] can also be used to control the
+/// [PageController.initialPage], which determines which page is shown when the
+/// [MTPageView] is first constructed, and the [PageController.viewportFraction],
+/// which determines the size of the pages as a fraction of the viewport size.
+///
+/// {@youtube 560 315 https://www.youtube.com/watch?v=J1gE9xvph-A}
+///
+/// {@tool dartpad}
+/// Here is an example of [MTPageView]. It creates a centered [Text] in each of the three pages
+/// which scroll horizontally.
+///
+/// ** See code in examples/api/lib/widgets/page_view/page_view.0.dart **
+/// {@end-tool}
+///
+/// ## Persisting the scroll position during a session
+///
+/// Scroll views attempt to persist their scroll position using [PageStorage].
+/// For a [MTPageView], this can be disabled by setting [PageController.keepPage]
+/// to false on the [controller]. If it is enabled, using a [PageStorageKey] for
+/// the [key] of this widget is recommended to help disambiguate different
+/// scroll views from each other.
+///
+/// See also:
+///
+///  * [PageController], which controls which page is visible in the view.
+///  * [SingleChildScrollView], when you need to make a single child scrollable.
+///  * [ListView], for a scrollable list of boxes.
+///  * [GridView], for a scrollable grid of boxes.
+///  * [ScrollNotification] and [NotificationListener], which can be used to watch
+///    the scroll position without using a [ScrollController].
 class NestedMTPageView extends MTPageView {
   /// 是否缓存可滚动页面，不缓存可能导致页面在嵌套滚动时被销毁导致手势事件丢失
   final bool wantKeepAlive;
 
+  /// Creates a scrollable list that works page by page from an explicit [List]
+  /// of widgets.
+  ///
+  /// This constructor is appropriate for page views with a small number of
+  /// children because constructing the [List] requires doing work for every
+  /// child that could possibly be displayed in the page view, instead of just
+  /// those children that are actually visible.
+  ///
+  /// Like other widgets in the framework, this widget expects that
+  /// the [children] list will not be mutated after it has been passed in here.
+  /// See the documentation at [SliverChildListDelegate.children] for more details.
+  ///
   NestedMTPageView({
     super.key,
     super.scrollDirection,
@@ -28,6 +81,27 @@ class NestedMTPageView extends MTPageView {
     this.wantKeepAlive = true,
   });
 
+  /// Creates a scrollable list that works page by page using widgets that are
+  /// created on demand.
+  ///
+  /// This constructor is appropriate for page views with a large (or infinite)
+  /// number of children because the builder is called only for those children
+  /// that are actually visible.
+  ///
+  /// Providing a non-null [itemCount] lets the [MTPageView] compute the maximum
+  /// scroll extent.
+  ///
+  /// [itemBuilder] will be called only with indices greater than or equal to
+  /// zero and less than [itemCount].
+  ///
+  /// {@macro flutter.widgets.ListView.builder.itemBuilder}
+  ///
+  /// The [findChildIndexCallback] corresponds to the
+  /// [SliverChildBuilderDelegate.findChildIndexCallback] property. If null,
+  /// a child widget may not map to its existing [RenderObject] when the order
+  /// of children returned from the children builder changes.
+  /// This may result in state-loss. This callback needs to be implemented if
+  /// the order of the children may change at a later time.
   NestedMTPageView.builder({
     super.key,
     super.scrollDirection,
@@ -48,6 +122,11 @@ class NestedMTPageView extends MTPageView {
     this.wantKeepAlive = true,
   }) : super.builder();
 
+  /// Creates a scrollable list that works page by page with a custom child
+  /// model.
+  ///
+  /// This example shows a [MTPageView] that uses a custom [SliverChildBuilderDelegate] to support child
+  /// reordering.
   const NestedMTPageView.custom({
     super.key,
     super.scrollDirection,
