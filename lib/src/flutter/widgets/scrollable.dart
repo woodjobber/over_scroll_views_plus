@@ -1508,6 +1508,10 @@ class _MTScrollableSelectionContainerDelegate
       case SelectionEventType.selectWord:
         _selectableEndEdgeUpdateRecords[selectable] = state.position.pixels;
         _selectableStartEdgeUpdateRecords[selectable] = state.position.pixels;
+      default:
+        _selectableEndEdgeUpdateRecords[selectable] = state.position.pixels;
+        _selectableStartEdgeUpdateRecords[selectable] = state.position.pixels;
+        break;
     }
     return super.dispatchSelectionEventToChild(selectable, event);
   }
