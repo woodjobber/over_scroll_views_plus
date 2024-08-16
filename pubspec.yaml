@@ -1,6 +1,6 @@
 name: over_scroll_views_plus
 description: "over_scroll_views_plus is a solution to the problem of nested tabbarviews causing the inability to return to the previous level or go to the next level."
-version: 0.0.5
+version: 0.0.6
 homepage:  https://github.com/woodjobber/over_scroll_views_plus.git
 repository:  https://github.com/woodjobber/over_scroll_views_plus.git
 
@@ -15,7 +15,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
+  flutter_lints: ^4.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
